@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Sản phẩm Sale</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container-sale {
+      width: 90%;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin: 40px auto;
+      border-radius: 10px;
+    }
+
+    .container-row-sale {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .title-sale {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      position: relative;
+      width: 100%;
+      text-align: center;
+    }
+
+    .time-sale {
+      position: absolute;
+      right: 0;
+      top: 0;
+      font-size: 16px;
+      color: #888;
+    }
+
+    .product-sale {
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .product-sale.active {
+      display: flex;
+      animation: fade 0.4s ease-in-out;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .product-item {
+      width: 200px;
+      background-color: #fefefe;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .product-item:hover {
+      transform: translateY(-5px);
+      border-color: #2196f3;
+    }
+
+    .product-item.selected {
+      background-color: #e3f2fd;
+      border-color: #2196f3;
+    }
+
+    .product-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .product-item li {
+      list-style: none;
+      margin: 10px 5px 0;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .product-item li.name {
+      font-weight: bold;
+      color: #000;
+    }
+
+    .product-item li.sale span {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+
+    .product-item li.sale span del {
+      color: #888;
+      text-decoration: line-through;
+      margin-left: 5px;
+    }
+
+    .nav-buttons {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .next, .back {
+      cursor: pointer;
+      font-size: 24px;
+      color: #333;
+      margin: 0 15px;
+      padding: 10px 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: #f9f9f9;
+      transition: background 0.3s;
+    }
+
+    .next:hover, .back:hover {
+      background-color: #2196f3;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+
+
+<script>
+  const boxes = document.querySelectorAll('.product-sale');
+  const nextBtn = document.querySelector('.next');
+  const backBtn = document.querySelector('.back');
+  let currentBox = 0;
+
+  function updateBox(index) {
+    boxes.forEach((box, i) => {
+      box.classList.toggle('active', i === index);
+    });
+  }
+
+  nextBtn.addEventListener('click', () => {
+    currentBox = (currentBox + 1) % boxes.length;
+    updateBox(currentBox);
+  });
+
+  backBtn.addEventListener('click', () => {
+    currentBox = (currentBox - 1 + boxes.length) % boxes.length;
+    updateBox(currentBox);
+  });
+
+  // Click chọn sản phẩm đổi màu
+  document.querySelectorAll('.product-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.product-item').forEach(i => i.classList.remove('selected'));
+      item.classList.add('selected');
+    });
+  });
+</script>
+
+</body>
+</html>
